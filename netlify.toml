@@ -8,21 +8,18 @@
     name = "python"
     version = "3.10"
 
-# Redireciona a rota do painel de administração para o Flask
 [[redirects]]
-  from = "/admin*"
+  from = "/admin"
   to = "/.netlify/functions/api"
   status = 200
   force = true
 
-# Redireciona chamadas da API para o Flask
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
-# Redireciona qualquer outra rota genérica para a landing page estática
 [[redirects]]
   from = "/*"
   to = "/index.html"
