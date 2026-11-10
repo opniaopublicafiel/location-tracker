@@ -1,6 +1,11 @@
-import serverless_wsgi
-from app import app
+import sys
+import os
 
-# Adaptador que traduz requisições do Netlify para o Flask WSGI
+# Adiciona a raiz do projeto ao path para importar o app.py
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+
+from app import app
+from serverless_wsgi import handle_handler
+
 def handler(event, context):
-    return serverless_wsgi.handle_request(app, event, context)
+    return handle_handler(app, event, context)
