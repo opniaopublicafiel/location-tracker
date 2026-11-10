@@ -1,16 +1,24 @@
 [build]
   command = "pip install -r requirements.txt"
   publish = "public"
+  functions = "netlify/functions"
 
 [functions]
-  directory = "netlify/functions"
-  
+  node_bundler = "esbuild"
+
   [functions.runtime]
     name = "python"
     version = "3.10"
 
+# Redireciona apenas o que for da API para a função serverless do Python
 [[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/api"
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
+
+# Garante que o restante carregue a interface estática corretamente
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
